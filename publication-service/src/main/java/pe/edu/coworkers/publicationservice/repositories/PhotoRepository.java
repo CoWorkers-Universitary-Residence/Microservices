@@ -7,5 +7,5 @@ import pe.edu.coworkers.publicationservice.entities.Publication;
 import java.util.List;
 
 public interface PhotoRepository extends JpaRepository<Photo, Long> {
-    public List<Photo> findByPublication(Publication publication);
+    List<Photo> findByPublication(Publication publication);
 }

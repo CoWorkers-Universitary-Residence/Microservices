@@ -1,13 +1,18 @@
-package pe.edu.coworkers.publicationservice.services;
+package pe.edu.coworkers.publicationservice.services.implementations;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import pe.edu.coworkers.publicationservice.entities.Photo;
 import pe.edu.coworkers.publicationservice.entities.Publication;
 import pe.edu.coworkers.publicationservice.repositories.PhotoRepository;
+import pe.edu.coworkers.publicationservice.services.PhotoService;
 
 import java.util.List;
+import java.util.Optional;
 
-public class PhotoServiceImpl implements PhotoService{
+@Service
+public class PhotoServiceImpl implements PhotoService {
 
     @Autowired
     private PhotoRepository photoRepository;
@@ -40,8 +45,11 @@ public class PhotoServiceImpl implements PhotoService{
     }
 
     @Override
-    public void delete(Long id) throws Exception {
-        photoRepository.deleteById(id);
+    public Optional<ResponseEntity<?>> delete(Long photoId) {
+        return photoRepository.findById(photoId).map(photo -> {
+            photoRepository.delete(photo);
+            return ResponseEntity.ok().build();
+        });
     }
 
     @Override

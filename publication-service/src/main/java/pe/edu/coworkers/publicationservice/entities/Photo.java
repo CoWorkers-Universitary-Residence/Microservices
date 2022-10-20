@@ -1,5 +1,6 @@
 package pe.edu.coworkers.publicationservice.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,5 +21,6 @@ public class Photo {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "publication_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Publication publication;
 }
