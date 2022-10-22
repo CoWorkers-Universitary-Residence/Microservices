@@ -1,7 +1,9 @@
 package pe.edu.rental.rentalservice.rental.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import pe.edu.rental.rentalservice.rental.client.PublicationClient;
 import pe.edu.rental.rentalservice.rental.domain.entity.Date;
 import pe.edu.rental.rentalservice.rental.domain.persistance.DateRepository;
 import pe.edu.rental.rentalservice.rental.domain.service.DateService;
@@ -20,7 +22,8 @@ public class DateServiceImpl implements DateService {
 
     private final DateRepository dateRepository;
 
-    //private final PublicationRepository publicationRepository;
+    @Autowired
+    PublicationClient publicationClient;
 
     //private final UserTenantRepository userTenantRepository;
 
@@ -58,16 +61,18 @@ public class DateServiceImpl implements DateService {
         if(!violations.isEmpty())
             throw new ResourceValidationException(ENTITY, violations);
 
-        /*
-        if(!publicationRepository.existsById(publicationId))
-            throw new ResourceNotFoundException("Publication", publicationId);
+        if(publicationClient.getPublication(date.getPublicationId()).getStatusCodeValue() == 404)
+            throw new ResourceNotFoundException("Publication", date.getPublicationId());
 
+        /*
          return userTenantRepository.findById(tenantId).map(tenant -> {
             date.setPublication(publicationExisting.get());
             date.setTenant(tenant);
             return dateRepository.save(date);
         }).orElseThrow(() -> new ResourceNotFoundException("Tenant", tenantId));
         */
+
+        date.setPublication(publicationClient.getPublication(date.getPublicationId()).getBody());
 
         return dateRepository.save(date);
     }
@@ -79,10 +84,10 @@ public class DateServiceImpl implements DateService {
         if(!violations.isEmpty())
             throw new ResourceValidationException(ENTITY, violations);
 
-        /*
-        if(!publicationRepository.existsById(publicationId))
-            throw new ResourceNotFoundException("Publication", publicationId);
+        if(publicationClient.getPublication(date.getPublicationId()).getStatusCodeValue() == 404)
+            throw new ResourceNotFoundException("Publication", date.getPublicationId());
 
+        /*
         if(!userTenantRepository.existsById(tenantId))
             throw new ResourceNotFoundException("Tenant", tenantId);
         */
