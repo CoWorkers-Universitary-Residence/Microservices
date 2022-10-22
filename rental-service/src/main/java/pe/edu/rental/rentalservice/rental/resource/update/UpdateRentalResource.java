@@ -1,9 +1,9 @@
-package pe.edu.rental.rentalservice.rental.domain.entity;
+package pe.edu.rental.rentalservice.rental.resource.update;
 
 import lombok.*;
-import pe.edu.rental.rentalservice.shared.domain.model.entity.AuditModel;
 
-import javax.persistence.*;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
@@ -13,11 +13,7 @@ import javax.validation.constraints.PositiveOrZero;
 @With
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "rentals")
-public class Rental extends AuditModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UpdateRentalResource {
     private Long id;
 
     @NotNull
@@ -39,9 +35,4 @@ public class Rental extends AuditModel {
     @NotNull
     @Positive
     private int months;
-
-    //Relationships
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "date_id", nullable = false)
-    private Date date;
 }

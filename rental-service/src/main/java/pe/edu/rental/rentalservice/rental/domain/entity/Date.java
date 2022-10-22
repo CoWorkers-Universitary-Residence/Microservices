@@ -22,13 +22,13 @@ public class Date extends AuditModel {
 
     @NotNull
     @Temporal(TemporalType.DATE)
-    private java.util.Date start_date;
+    private java.util.Date startDate;
 
     @NotNull
     private int months;
 
     @NotNull
-    private int phone_number;
+    private int phoneNumber;
 
     @Email
     @NotNull
@@ -41,9 +41,9 @@ public class Date extends AuditModel {
 
     private boolean status;
 
-    private Long publication_id;
+    private Long publicationId;
 
-    private Long tenant_id;
+    private Long tenantId;
 
     //Relationships
     /*
