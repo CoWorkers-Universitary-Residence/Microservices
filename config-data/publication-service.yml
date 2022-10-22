@@ -36,3 +36,9 @@ org:
       web:
         server:
           WebServerException: Unable
+
+#Eureka configuration
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8099/eureka/
