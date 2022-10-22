@@ -62,7 +62,7 @@ public class RentalServiceImpl implements RentalService {
         Optional<Rental> rentalExisting = rentalRepository.findByDateId(dateId);
 
         if(!rentalExisting.isEmpty())
-            throw new ResourceValidationException(String.format("A rental entity already exists with id %d", rental.getId()));
+            throw new ResourceValidationException(String.format("A rental entity already exists with dateId %d", dateId));
 
         return rentalRepository.save(rental);
     }
