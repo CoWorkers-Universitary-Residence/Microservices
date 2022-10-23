@@ -1,7 +1,7 @@
-package com.example.subscriptionservice.Domain.entity;
+package com.example.subscriptionservice.Domain.model.entity;
 
 
-import com.example.subscriptionservice.Domain.enums.Type;
+import com.example.subscriptionservice.Domain.model.enums.Type;
 import com.sun.istack.NotNull;
 import lombok.*;
 
