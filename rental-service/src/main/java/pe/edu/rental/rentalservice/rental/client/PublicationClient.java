@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import pe.edu.rental.rentalservice.rental.model.Publication;
 
-@FeignClient(name = "publication-service", decode404 = true)
+@FeignClient(name = "publication-service", decode404 = true/*, fallback = PublicationHystrixFallbackFactory.class*/)
 public interface PublicationClient {
 
     @GetMapping(path = "/api/v1/publications/{id}")
