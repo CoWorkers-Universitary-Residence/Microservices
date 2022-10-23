@@ -16,10 +16,10 @@ spring:
         - id: rental-service
           uri: lb://rental-service
           predicates:
-            - Path=/dates/**
-            - Path=/rental/**
+            - Path=/api/v1/dates/**
+            - Path=/api/v1/rental/**
         - id: publication-service
           uri: lb://publication-service
           predicates:
-            - Path=/publications/**
-            - Path=/photos/**
+            - Path=/api/v1/publications/**
+            - Path=/api/v1/photos/**
