@@ -36,12 +36,18 @@ public class DateServiceImpl implements DateService {
 
     @Override
     public List<Date> getAll() {
-        return dateRepository.findAll();
+        List<Date> result = dateRepository.findAll();
+        result.forEach(
+                (date) -> date.setPublication(publicationClient.getPublication(date.getPublicationId()).getBody())
+        );
+        return result;
     }
 
     @Override
     public Date getById(Long dateId) {
-        return dateRepository.findById(dateId).orElseThrow(() -> new ResourceNotFoundException(ENTITY, dateId));
+        Date result = dateRepository.findById(dateId).orElseThrow(() -> new ResourceNotFoundException(ENTITY, dateId));
+        result.setPublication(publicationClient.getPublication(result.getPublicationId()).getBody());
+        return result;
     }
 
     @Override
@@ -63,6 +69,10 @@ public class DateServiceImpl implements DateService {
 
         if(publicationClient.getPublication(date.getPublicationId()).getStatusCodeValue() == 404)
             throw new ResourceNotFoundException("Publication", date.getPublicationId());
+
+        //TODO: Verify validation
+        if(dateRepository.findByTenantId(date.getTenantId()).size() > 0)
+            throw new ResourceValidationException("There is already a date for this publication");
 
         /*
          return userTenantRepository.findById(tenantId).map(tenant -> {

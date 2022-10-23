@@ -20,7 +20,8 @@ public class DateMapper implements Serializable {
 
     public DateResource toResource(Date model) {
         mapper.getConfiguration().setAmbiguityIgnored(true);
-        return mapper.map(model, DateResource.class);
+        return mapper.typeMap(Date.class, DateResource.class)
+                .addMapping(dt -> dt.getPublicationId(), DateResource::setPublicationId).map(model);
     }
 
     public Date toModel(CreateDateResource resource) {
@@ -35,6 +36,8 @@ public class DateMapper implements Serializable {
 
     public Page<DateResource> modelListPage (List<Date> modelList, Pageable pageable) {
         mapper.getConfiguration().setAmbiguityIgnored(true);
+        mapper.typeMap(Date.class, DateResource.class)
+                .addMapping(dt -> dt.getPublicationId(), DateResource::setPublicationId);
         return new PageImpl<>(mapper.mapList(modelList, DateResource.class), pageable, modelList.size());
     }
 
