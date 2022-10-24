@@ -1,7 +1,7 @@
-package com.example.subscriptionservice.Domain.model.entity;
+package com.example.subscriptionservice.domain.model.entity;
 
 
-import com.example.subscriptionservice.Domain.model.enums.Type;
+import com.example.subscriptionservice.domain.model.enums.Type;
 import com.sun.istack.NotNull;
 import lombok.*;
 
@@ -29,4 +29,7 @@ public class Subscription {
 
     @NotNull
     private Date finish_date;
+
+    @NotNull
+    private Long price;
 }
