@@ -1,13 +1,18 @@
-package com.example.subscriptionservice.resources.update;
+package com.example.subscriptionservice.resources.create;
 
 import com.example.subscriptionservice.domain.model.enums.Type;
 import com.sun.istack.NotNull;
+import lombok.*;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import java.util.Date;
 
-public class updateSubscriptionResource {
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@With
+public class CreateSubscriptionResource {
     @NotNull
     @Enumerated(value = EnumType.STRING)
     private Type type;
