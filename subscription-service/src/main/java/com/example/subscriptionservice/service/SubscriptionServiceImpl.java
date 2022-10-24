@@ -1,4 +1,4 @@
-package com.example.subscriptionservice.shared.service;
+package com.example.subscriptionservice.service;
 
 
 import com.challenge.backend.shared.exception.ResourceValidationException;
