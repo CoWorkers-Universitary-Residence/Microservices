@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: publication-service
+  cloud:
+    config:
+      #URI where config-service is running
+      uri: http://localhost:8081
+      username: root
+      password: universitaryresidence
