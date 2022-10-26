@@ -1,19 +1,16 @@
 package pe.edu.coworkers.reviewservice.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pe.edu.coworkers.reviewservice.api.client.PublicationClient;
-import pe.edu.coworkers.reviewservice.api.client.TenantClient;
 import pe.edu.coworkers.reviewservice.domain.model.entity.Review;
 import pe.edu.coworkers.reviewservice.domain.model.model.Publication;
 import pe.edu.coworkers.reviewservice.domain.persistence.ReviewRepository;
 import pe.edu.coworkers.reviewservice.domain.service.ReviewService;
 import pe.edu.coworkers.reviewservice.shared.exception.ResourceNotFoundException;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -59,10 +56,20 @@ public class ReviewServiceImpl implements ReviewService {
             throw new ResourceNotFoundException("Publication", publicationId);
         }
 
+        float score = publication.getScore();
+        int reviews_number = publication.getReviews();
+
+        float new_score = (float) ((score * reviews_number + (float)request.getScore()) / ((float)reviews_number + 1.0));
+        int new_reviews_number = reviews_number + 1;
+
+        publication.setScore(new_score);
+        publication.setReviews(new_reviews_number);
+
+        publicationClient.updatePublication(publication.getId(), publication);
+
         return reviewRepository.save(request);
     }
 
-    //TODO: Update Publication Score
     @Override
     public Review update(Long reviewId, Review request) {
         Long publicationId = request.getPublicationId();

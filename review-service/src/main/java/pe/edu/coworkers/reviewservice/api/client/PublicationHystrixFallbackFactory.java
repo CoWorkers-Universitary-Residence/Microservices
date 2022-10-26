@@ -8,6 +8,11 @@ import pe.edu.coworkers.reviewservice.domain.model.model.Publication;
 @Component
 public class PublicationHystrixFallbackFactory implements PublicationClient {
     @Override
+    public ResponseEntity<Publication> createPublication(Publication publication) {
+        return null;
+    }
+
+    @Override
     public ResponseEntity<Publication> getPublication(Long id) {
         Publication publication = Publication.builder()
                 .about("none")
@@ -27,5 +32,10 @@ public class PublicationHystrixFallbackFactory implements PublicationClient {
                 .views(0)
                 .build();
         return ResponseEntity.ok(publication);
+    }
+
+    @Override
+    public ResponseEntity<Publication> updatePublication(Long id, Publication publication) {
+        return null;
     }
 }

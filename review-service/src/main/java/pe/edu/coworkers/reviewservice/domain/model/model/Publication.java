@@ -22,4 +22,6 @@ public class Publication {
     private String address;
     private boolean visit;
     private int views;
+    private float score;
+    private int reviews;
 }
