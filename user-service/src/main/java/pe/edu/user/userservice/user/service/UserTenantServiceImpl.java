@@ -24,6 +24,11 @@ public class UserTenantServiceImpl implements UserTenantService {
     }
 
     @Override
+    public UserTenant findById(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(ENTITY, id));
+    }
+
+    @Override
     public UserTenant authenticate(String email, String password) {
         return userRepository.findByEmailAndPassword(email, password)
                 .orElseThrow(() -> new ResourceValidationException(ENTITY, "%s %s".formatted(email, password)));

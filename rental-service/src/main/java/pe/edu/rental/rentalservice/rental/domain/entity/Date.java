@@ -2,6 +2,7 @@ package pe.edu.rental.rentalservice.rental.domain.entity;
 
 import lombok.*;
 import pe.edu.rental.rentalservice.rental.model.Publication;
+import pe.edu.rental.rentalservice.rental.model.UserTenantResource;
 import pe.edu.rental.rentalservice.shared.domain.model.entity.AuditModel;
 
 import javax.persistence.*;
@@ -50,10 +51,7 @@ public class Date extends AuditModel {
     @Transient
     private Publication publication;
 
-    /*
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "tenant_id", nullable = false)
-    private UserTenant tenant;
-    */
+    @Transient
+    private UserTenantResource userTenantResource;
 
 }

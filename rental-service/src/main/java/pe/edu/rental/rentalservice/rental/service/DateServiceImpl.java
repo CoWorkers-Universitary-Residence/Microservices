@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pe.edu.rental.rentalservice.rental.client.PublicationClient;
+import pe.edu.rental.rentalservice.rental.client.UserTenantClient;
 import pe.edu.rental.rentalservice.rental.domain.entity.Date;
 import pe.edu.rental.rentalservice.rental.domain.persistance.DateRepository;
 import pe.edu.rental.rentalservice.rental.domain.service.DateService;
@@ -25,7 +26,8 @@ public class DateServiceImpl implements DateService {
     @Autowired
     PublicationClient publicationClient;
 
-    //private final UserTenantRepository userTenantRepository;
+    @Autowired
+    UserTenantClient userTenantClient;
 
     private final Validator validator;
 
@@ -38,7 +40,10 @@ public class DateServiceImpl implements DateService {
     public List<Date> getAll() {
         List<Date> result = dateRepository.findAll();
         result.forEach(
-                (date) -> date.setPublication(publicationClient.getPublication(date.getPublicationId()).getBody())
+                (date) -> {
+                    date.setPublication(publicationClient.getPublication(date.getPublicationId()).getBody());
+                    date.setUserTenantResource(userTenantClient.getATenantById(date.getTenantId()).getBody());
+                }
         );
         return result;
     }
@@ -47,6 +52,7 @@ public class DateServiceImpl implements DateService {
     public Date getById(Long dateId) {
         Date result = dateRepository.findById(dateId).orElseThrow(() -> new ResourceNotFoundException(ENTITY, dateId));
         result.setPublication(publicationClient.getPublication(result.getPublicationId()).getBody());
+        result.setUserTenantResource(userTenantClient.getATenantById(result.getTenantId()).getBody());
         return result;
     }
 
@@ -70,17 +76,12 @@ public class DateServiceImpl implements DateService {
         if(publicationClient.getPublication(date.getPublicationId()).getStatusCodeValue() == 404)
             throw new ResourceNotFoundException("Publication", date.getPublicationId());
 
+        if(userTenantClient.getATenantById(date.getTenantId()).getStatusCodeValue() == 404)
+            throw new ResourceNotFoundException("UserTenant", date.getTenantId());
+
         //TODO: Verify validation
         if(dateRepository.findByTenantId(date.getTenantId()).size() > 0)
             throw new ResourceValidationException("There is already a date for this publication");
-
-        /*
-         return userTenantRepository.findById(tenantId).map(tenant -> {
-            date.setPublication(publicationExisting.get());
-            date.setTenant(tenant);
-            return dateRepository.save(date);
-        }).orElseThrow(() -> new ResourceNotFoundException("Tenant", tenantId));
-        */
 
         date.setPublication(publicationClient.getPublication(date.getPublicationId()).getBody());
 
@@ -97,10 +98,9 @@ public class DateServiceImpl implements DateService {
         if(publicationClient.getPublication(date.getPublicationId()).getStatusCodeValue() == 404)
             throw new ResourceNotFoundException("Publication", date.getPublicationId());
 
-        /*
-        if(!userTenantRepository.existsById(tenantId))
-            throw new ResourceNotFoundException("Tenant", tenantId);
-        */
+        if(userTenantClient.getATenantById(date.getTenantId()).getStatusCodeValue() == 404)
+            throw new ResourceNotFoundException("UserTenant", date.getTenantId());
+
 
         return dateRepository.findById(dateId).map(existingDate ->
                 dateRepository.save(
