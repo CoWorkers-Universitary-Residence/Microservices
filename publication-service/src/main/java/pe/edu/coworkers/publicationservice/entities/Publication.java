@@ -60,4 +60,7 @@ public class Publication {
 
     @NotNull
     private int views;
+
+    @NotNull
+    private Long ownerId;
 }
