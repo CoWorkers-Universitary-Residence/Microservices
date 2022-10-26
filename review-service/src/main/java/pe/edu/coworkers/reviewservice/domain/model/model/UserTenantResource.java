@@ -1,16 +1,11 @@
-package pe.edu.user.userservice.user.resource.update;
+package pe.edu.coworkers.reviewservice.domain.model.model;
 
-import lombok.*;
-import pe.edu.user.userservice.user.domain.model.nums.Gender;
-
+import lombok.Data;
 import java.util.Date;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-@With
-public class UpdateUserTenantResource {
+@Data
+public class UserTenantResource {
+    private Long id;
     private String name;
     private String lastName;
     private Gender gender;
@@ -18,7 +13,6 @@ public class UpdateUserTenantResource {
     private String description;
     private String photo;
     private String email;
-    private String occupation;
     private String password;
     private String phone_number;
     private String country ;

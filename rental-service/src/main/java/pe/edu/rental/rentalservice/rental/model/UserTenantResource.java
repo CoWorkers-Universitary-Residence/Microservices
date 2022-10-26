@@ -1,10 +1,13 @@
-package pe.edu.coworkers.reviewservice.domain.model.model;
+package pe.edu.rental.rentalservice.rental.model;
 
 import lombok.Data;
+import pe.edu.rental.rentalservice.rental.model.nums.Gender;
+
 import java.util.Date;
 
 @Data
-public class UpdateUserTenantResource {
+public class UserTenantResource {
+    private Long id;
     private String name;
     private String lastName;
     private Gender gender;

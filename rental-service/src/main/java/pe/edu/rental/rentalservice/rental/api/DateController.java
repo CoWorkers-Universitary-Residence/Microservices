@@ -35,7 +35,7 @@ public class DateController {
         return mapper.toResource(dateService.getById(id));
     }
 
-    @GetMapping("publiicationId={publicationId}")
+    @GetMapping("publicationId={publicationId}")
     public Page<DateResource> getAllByPublicationId(@PathVariable Long publicationId, Pageable pageable) {
         return mapper.modelListPage(dateService.getAllByPublicationId(publicationId), pageable);
     }

@@ -32,6 +32,10 @@ public class UserTenant {
     private String lastName;
 
     @NotNull
+    @NotBlank
+    private String occupation;
+
+    @NotNull
     @Enumerated(value = EnumType.STRING)
     private Gender gender;
 

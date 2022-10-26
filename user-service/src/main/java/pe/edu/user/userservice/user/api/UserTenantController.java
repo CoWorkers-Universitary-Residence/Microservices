@@ -37,9 +37,26 @@ public class UserTenantController {
             )
     })
     @GetMapping("/sign-in")
-    public UpdateUserTenantResource authenticateUserTenant(@RequestParam(name = "email") String email,
+    public UserTenantResource authenticateUserTenant(@RequestParam(name = "email") String email,
                                                            @RequestParam(name = "password") String password) {
         return userTenantMapper.toResource(userTenantService.authenticate(email, password));
+    }
+
+    @Operation(summary = "Get a tenant by id", description = "Get a user tenant stored in the database.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Tenant found",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserTenantResource.class)
+                    )}
+            )
+    })
+    @GetMapping("{id}")
+    public ResponseEntity<UserTenantResource> getATenantById(@PathVariable Long id) {
+        UserTenantResource result = userTenantMapper.toResource(userTenantService.findById(id));
+        if (result == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(result);
     }
 
     @Operation(summary = "Create a tenant", description = "Create a user tenant in the database.")
@@ -51,7 +68,7 @@ public class UserTenantController {
             )
     })
     @PostMapping("/sign-up")
-    public UpdateUserTenantResource registerUserTenant(@Valid @RequestBody CreateUserTenantResource request) {
+    public UserTenantResource registerUserTenant(@Valid @RequestBody CreateUserTenantResource request) {
         return userTenantMapper.toResource(userTenantService.register(userTenantMapper.toModel(request)));
     }
 
@@ -64,7 +81,7 @@ public class UserTenantController {
             )
     })
     @PutMapping("{userTenantId}")
-    public UpdateUserTenantResource update(@PathVariable Long userTenantId,
+    public UserTenantResource update(@PathVariable Long userTenantId,
                                            @Valid @RequestBody UpdateUserTenantResource request) {
         return userTenantMapper.toResource(userTenantService.update(userTenantId, userTenantMapper.toModel(request)));
     }

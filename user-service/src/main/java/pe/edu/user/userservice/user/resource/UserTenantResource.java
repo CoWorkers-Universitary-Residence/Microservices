@@ -6,8 +6,6 @@ import pe.edu.user.userservice.user.domain.model.nums.Gender;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -16,8 +14,7 @@ import java.util.Date;
 @Setter
 @With
 public class UserTenantResource {
-
-
+    private Long id;
     private String name;
     private String lastName;
     private Gender gender;
@@ -25,6 +22,7 @@ public class UserTenantResource {
     private String description;
     private String photo;
     private String email;
+    private String occupation;
     private String password;
     private String phone_number;
     private String country ;

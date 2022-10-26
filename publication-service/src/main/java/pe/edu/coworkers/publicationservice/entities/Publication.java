@@ -63,4 +63,9 @@ public class Publication {
 
     @NotNull
     private Long ownerId;
+
+    private float score;
+
+    @NotNull
+    private int reviews;
 }

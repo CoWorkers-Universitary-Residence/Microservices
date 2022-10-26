@@ -18,9 +18,11 @@ public class UpdateUserOwnerResource {
     private String description;
     private String email;
     private String password;
+    private String score;
     private String phone_number;
     private String photo;
     private String country ;
     private String city ;
     private String address ;
+    private Long subscriptionId;
 }
