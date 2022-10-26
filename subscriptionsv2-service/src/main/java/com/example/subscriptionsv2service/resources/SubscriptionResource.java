@@ -1,6 +1,6 @@
 package com.example.subscriptionsv2service.resources;
 
-import com.example.subscriptionservice.domain.model.enums.Type;
+import com.example.subscriptionsv2service.domain.model.enums.Type;
 import lombok.*;
 
 import java.util.Date;

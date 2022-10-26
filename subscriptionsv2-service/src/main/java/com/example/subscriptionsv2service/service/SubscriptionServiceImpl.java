@@ -18,7 +18,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     private final SubscriptionRepository subscriptionRepository;
     private  final Validator validator;
 
-    public SubscriptionServiceImpl(SubscriptionRepository subscriptionRepository, Validator validator){
+    public SubscriptionServiceImpl(Validator validator,SubscriptionRepository subscriptionRepository){
         this.subscriptionRepository = subscriptionRepository;
         this.validator = validator;
     }
