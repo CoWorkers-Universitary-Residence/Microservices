@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pe.edu.coworkers.reviewservice.api.client.PublicationClient;
+import pe.edu.coworkers.reviewservice.api.client.TenantClient;
 import pe.edu.coworkers.reviewservice.domain.model.entity.Review;
 import pe.edu.coworkers.reviewservice.domain.model.model.Publication;
+import pe.edu.coworkers.reviewservice.domain.model.model.UserTenantResource;
 import pe.edu.coworkers.reviewservice.domain.persistence.ReviewRepository;
 import pe.edu.coworkers.reviewservice.domain.service.ReviewService;
 import pe.edu.coworkers.reviewservice.shared.exception.ResourceNotFoundException;
@@ -22,6 +24,9 @@ public class ReviewServiceImpl implements ReviewService {
     @Autowired
     private PublicationClient publicationClient;
 
+    @Autowired
+    private TenantClient tenantClient;
+
     @Override
     public List<Review> getAll() {
         return reviewRepository.findAll();
@@ -35,8 +40,9 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public List<Review> getByPublicationId(Long publicationId) {
-        ResponseEntity<Publication> response = publicationClient.getPublication(publicationId);
-        Publication publication = response.getBody();
+        // Publication Validation
+        ResponseEntity<Publication> publicationResponse = publicationClient.getPublication(publicationId);
+        Publication publication = publicationResponse.getBody();
 
         if (publication == null){
             throw new ResourceNotFoundException("Publication", publicationId);
@@ -47,14 +53,9 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Review create(Review request) {
-        Long publicationId = request.getPublicationId();
+        ValidateIfTenantExists(request);
+        Publication publication = ValidateIfPublicationExists(request);
 
-        ResponseEntity<Publication> response = publicationClient.getPublication(publicationId);
-        Publication publication = response.getBody();
-
-        if (publication == null){
-            throw new ResourceNotFoundException("Publication", publicationId);
-        }
 
         float score = publication.getScore();
         int reviews_number = publication.getReviews();
@@ -72,14 +73,8 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Review update(Long reviewId, Review request) {
-        Long publicationId = request.getPublicationId();
-
-        ResponseEntity<Publication> response = publicationClient.getPublication(publicationId);
-        Publication publication = response.getBody();
-
-        if (publication == null){
-            throw new ResourceNotFoundException("Publication", publicationId);
-        }
+        ValidateIfTenantExists(request);
+        ValidateIfPublicationExists(request);
 
         return reviewRepository.findById(reviewId).map(review ->
                 reviewRepository.save(
@@ -95,5 +90,31 @@ public class ReviewServiceImpl implements ReviewService {
             reviewRepository.delete(review);
             return ResponseEntity.ok().build();
         }).orElseThrow(() -> new ResourceNotFoundException(ENTITY, reviewId));
+    }
+
+    private void ValidateIfTenantExists(Review request){
+        // Tenant validation
+        Long tenantId = request.getTenantId();
+
+        ResponseEntity<UserTenantResource> tenantResponse = tenantClient.getATenantById(tenantId);
+        UserTenantResource tenant = tenantResponse.getBody();
+
+        if (tenant.getName() == null){
+            throw new ResourceNotFoundException("Tenant", tenantId);
+        }
+    }
+
+    private Publication ValidateIfPublicationExists(Review request){
+        // Publication validation
+        Long publicationId = request.getPublicationId();
+
+        ResponseEntity<Publication> response = publicationClient.getPublication(publicationId);
+        Publication publication = response.getBody();
+
+        if (publication == null){
+            throw new ResourceNotFoundException("Publication", publicationId);
+        }
+
+        return publication;
     }
 }

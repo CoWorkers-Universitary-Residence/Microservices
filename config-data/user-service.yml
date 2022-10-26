@@ -3,7 +3,8 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/user?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
     username: postgres
-    password: o9L2TtFd
+    password: root
+    
 
   #Hibernate Configuration
   jpa:

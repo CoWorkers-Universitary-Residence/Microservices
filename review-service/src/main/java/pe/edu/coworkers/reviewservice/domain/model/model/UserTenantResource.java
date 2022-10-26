@@ -4,7 +4,8 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class UpdateUserTenantResource {
+public class UserTenantResource {
+    private Long id;
     private String name;
     private String lastName;
     private Gender gender;
