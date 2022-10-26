@@ -13,13 +13,24 @@ spring:
         locator:
           enabled: true
       routes:
-        - id: rental-service
-          uri: lb://rental-service
+        - id: user-service
+          uri: lb://user-service
           predicates:
-            - Path=/api/v1/dates/**
-            - Path=/api/v1/rental/**
+            - Path=/api/v1/userstenant/**,/api/v1/usersowner/**
         - id: publication-service
           uri: lb://publication-service
           predicates:
-            - Path=/api/v1/publications/**
-            - Path=/api/v1/photos/**
+            - Path=/api/v1/publications/**,/api/v1/photos/**,/api/v1/details/**
+        - id: review-service
+          uri: lb://review-service
+          predicates:
+            - Path=/api/v1/reviews/**
+        - id: rental-service
+          uri: lb://rental-service
+          predicates:
+            - Path=/api/v1/rental/**,/api/v1/dates/**
+        - id: subscription-service
+          uri: lb://subscription-service
+          predicates:
+            - Path=/api/v1/subscriptions/**
+
