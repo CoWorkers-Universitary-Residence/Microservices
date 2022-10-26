@@ -16,7 +16,7 @@ spring:
         - id: user-service
           uri: lb://user-service
           predicates:
-            - Path=/api/v1/userstenant/**
+            - Path=/api/v1/userstenant/**,/api/v1/usersowner/**
         - id: rental-service
           uri: lb://rental-service
           predicates:
