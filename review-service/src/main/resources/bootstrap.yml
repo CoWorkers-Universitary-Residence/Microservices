@@ -1,6 +1,6 @@
 spring:
     application:
-        name: rental-service
+        name: review-service
     cloud:
         config:
             #URI where config-service is running
