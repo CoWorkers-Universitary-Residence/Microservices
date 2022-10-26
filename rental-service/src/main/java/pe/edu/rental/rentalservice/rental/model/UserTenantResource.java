@@ -1,20 +1,11 @@
-package pe.edu.user.userservice.user.resource;
+package pe.edu.rental.rentalservice.rental.model;
 
-import lombok.*;
-import pe.edu.user.userservice.user.domain.model.nums.Gender;
+import lombok.Data;
+import pe.edu.rental.rentalservice.rental.model.nums.Gender;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-@With
+@Data
 public class UserTenantResource {
     private Long id;
     private String name;

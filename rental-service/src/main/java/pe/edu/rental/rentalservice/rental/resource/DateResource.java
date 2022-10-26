@@ -2,6 +2,7 @@ package pe.edu.rental.rentalservice.rental.resource;
 
 import lombok.*;
 import pe.edu.rental.rentalservice.rental.model.Publication;
+import pe.edu.rental.rentalservice.rental.model.UserTenantResource;
 
 @Getter
 @Setter
@@ -21,5 +22,5 @@ public class DateResource {
 
     //Relationships
     private Publication publication;
-    //private UserTenantResource tenant;
+    private UserTenantResource tenant;
 }
