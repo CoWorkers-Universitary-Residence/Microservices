@@ -1,4 +1,4 @@
-package pe.edu.user.userservice;
+package pe.edu.coworkers.reviewservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,16 +7,15 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
-@EnableEurekaClient
 @SpringBootApplication
 @EnableEurekaClient
 @EnableFeignClients
 @EnableHystrix
 @EnableHystrixDashboard
-public class UserServiceApplication {
+public class ReviewServiceApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(UserServiceApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(ReviewServiceApplication.class, args);
+	}
 
 }
