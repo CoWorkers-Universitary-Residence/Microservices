@@ -60,4 +60,10 @@ public class Publication {
 
     @NotNull
     private int views;
+
+    @NotNull
+    private float score;
+
+    @NotNull
+    private int reviews;
 }

@@ -1,7 +1,6 @@
 package pe.edu.coworkers.reviewservice.domain.model.entity;
 
 import lombok.*;
-import pe.edu.coworkers.reviewservice.domain.model.model.Publication;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -15,6 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table(name = "reviews")
+@Builder
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +35,6 @@ public class Review {
     @NotNull
     private Long publicationId;
 
-    //@Transient
-    //private Tenant tenant;
+    @NotNull
+    private Long tenantId;
 }

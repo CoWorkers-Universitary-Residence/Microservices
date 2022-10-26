@@ -51,6 +51,8 @@ public class PublicationServiceImpl implements PublicationService {
         publication1.setAddress(publication.getAddress());
         publication1.setVisit(publication.isVisit());
         publication1.setViews(publication.getViews());
+        publication1.setScore(publication.getScore());
+        publication1.setReviews(publication.getReviews());
         return publicationRepository.save(publication1);
     }
 
