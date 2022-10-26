@@ -1,9 +1,12 @@
 package pe.edu.coworkers.reviewservice.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import pe.edu.coworkers.reviewservice.api.client.PublicationClient;
 import pe.edu.coworkers.reviewservice.domain.model.entity.Review;
+import pe.edu.coworkers.reviewservice.domain.model.model.Publication;
 import pe.edu.coworkers.reviewservice.domain.persistence.ReviewRepository;
 import pe.edu.coworkers.reviewservice.domain.service.ReviewService;
 import pe.edu.coworkers.reviewservice.shared.exception.ResourceNotFoundException;
@@ -17,6 +20,9 @@ public class ReviewServiceImpl implements ReviewService {
     @Autowired
     private ReviewRepository reviewRepository;
 
+    @Autowired
+    private PublicationClient publicationClient;
+
     @Override
     public List<Review> getAll() {
         return reviewRepository.findAll();
@@ -29,14 +35,30 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     //TODO: Check if publication exists
-    //@Override
-    //public List<Review> getByPublicationId(Long publicationId) {
-    //    return reviewRepository.findByPublicationId(publicationId);
-    //}
+    @Override
+    public List<Review> getByPublicationId(Long publicationId) {
+        ResponseEntity<Publication> response = publicationClient.getPublication(publicationId);
+        Publication publication = response.getBody();
+
+        if (publication == null){
+            throw new ResourceNotFoundException("Publication", publicationId);
+        }
+
+        return reviewRepository.findByPublicationId(publicationId);
+    }
 
     //TODO: Check if publication exists
     @Override
     public Review create(Review request) {
+        Long publicationId = request.getPublicationId();
+
+        ResponseEntity<Publication> response = publicationClient.getPublication(publicationId);
+        Publication publication = response.getBody();
+
+        if (publication == null){
+            throw new ResourceNotFoundException("Publication", publicationId);
+        }
+
         return reviewRepository.save(request);
     }
 

@@ -2,7 +2,6 @@ package pe.edu.coworkers.reviewservice.domain.model.entity;
 
 import lombok.*;
 import pe.edu.coworkers.reviewservice.domain.model.model.Publication;
-import pe.edu.coworkers.reviewservice.domain.model.model.Tenant;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -33,8 +32,8 @@ public class Review {
     @Column(nullable = false)
     private int score;
 
-    //@Transient
-    //private Publication publication;
+    @Transient
+    private Long publicationId;
 
     //@Transient
     //private Tenant tenant;
