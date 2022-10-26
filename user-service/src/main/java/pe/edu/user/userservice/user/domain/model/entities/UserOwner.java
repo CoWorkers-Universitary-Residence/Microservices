@@ -17,6 +17,7 @@ import java.util.Date;
 @With
 @Entity
 @Table(name = "owners")
+@Builder
 public class UserOwner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,7 +61,7 @@ public class UserOwner {
     @Enumerated(value = EnumType.STRING)
     private Status status;
 
-
+    @NotNull
     private Long score;
 
     @NotNull
@@ -73,5 +74,11 @@ public class UserOwner {
 
     @NotNull
     @NotBlank
+
+    @NotNull
+    @NotBlank
     private String address ;
+
+    @NotNull
+    private Long subscriptionId;
 }

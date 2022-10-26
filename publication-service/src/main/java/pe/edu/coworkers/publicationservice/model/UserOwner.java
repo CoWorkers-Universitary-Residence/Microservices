@@ -1,17 +1,15 @@
-package pe.edu.user.userservice.user.resource;
+package pe.edu.coworkers.publicationservice.model;
 
-import lombok.*;
-import pe.edu.user.userservice.user.domain.model.nums.Gender;
-import pe.edu.user.userservice.user.domain.model.nums.Status;
+import lombok.Data;
+import pe.edu.coworkers.publicationservice.model.nums.Gender;
+import pe.edu.coworkers.publicationservice.model.nums.Status;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.util.Date;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-@With
-public class UserOwnerResource {
+@Data
+public class UserOwner {
     private Long id;
     private String name;
     private String lastName;
@@ -27,5 +25,4 @@ public class UserOwnerResource {
     private String country ;
     private String city ;
     private String address ;
-    private Long subscriptionId;
 }

@@ -41,6 +41,10 @@ public class CreateUserTenantResource {
 
     @NotNull
     @NotBlank
+    private String occupation;
+
+    @NotNull
+    @NotBlank
     private String password;
 
     @NotNull

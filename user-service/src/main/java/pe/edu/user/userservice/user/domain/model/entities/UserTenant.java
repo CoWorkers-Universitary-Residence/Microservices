@@ -17,6 +17,7 @@ import java.util.Date;
 @Entity
 @Table(name = "tenants")
 @Inheritance(strategy = InheritanceType.JOINED)
+@Builder
 public class UserTenant {
 
     @Id
@@ -30,6 +31,10 @@ public class UserTenant {
     @NotNull
     @NotBlank
     private String lastName;
+
+    @NotNull
+    @NotBlank
+    private String occupation;
 
     @NotNull
     @Enumerated(value = EnumType.STRING)

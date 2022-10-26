@@ -24,6 +24,11 @@ public class UserOwnerServiceImpl implements UserOwnerService {
     }
 
     @Override
+    public UserOwner findById(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(ENTITY, id));
+    }
+
+    @Override
     public UserOwner authenticate(String email, String password) {
         return userRepository.findByEmailAndPassword(email, password)
                 .orElseThrow(() -> new ResourceValidationException(ENTITY, "%s %s".formatted(email, password)));
