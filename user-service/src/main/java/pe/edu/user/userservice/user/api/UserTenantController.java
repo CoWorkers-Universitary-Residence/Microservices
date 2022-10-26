@@ -42,7 +42,7 @@ public class UserTenantController {
         return userTenantMapper.toResource(userTenantService.authenticate(email, password));
     }
 
-    @Operation(summary = "Get a tenant", description = "Get a user tenant stored in the database.")
+    @Operation(summary = "Get a tenant by id", description = "Get a user tenant stored in the database.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Tenant found",
                     content = { @Content(mediaType = "application/json",
