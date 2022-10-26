@@ -17,6 +17,7 @@ import java.util.Date;
 @With
 @Entity
 @Table(name = "owners")
+@Builder
 public class UserOwner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -17,6 +17,7 @@ import java.util.Date;
 @Entity
 @Table(name = "tenants")
 @Inheritance(strategy = InheritanceType.JOINED)
+@Builder
 public class UserTenant {
 
     @Id
