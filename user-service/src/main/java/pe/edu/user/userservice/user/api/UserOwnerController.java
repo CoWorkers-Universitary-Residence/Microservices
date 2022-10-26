@@ -57,6 +57,23 @@ public class UserOwnerController {
         return userOwnerMapper.toResource(userOwnerService.register(userOwnerMapper.toModel(request)));
     }
 
+    @Operation(summary = "Get a owner", description = "Get a user owner stored in the database.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Owner found",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserOwnerResource.class)
+                    )}
+            )
+    })
+    @GetMapping("{id}")
+    public ResponseEntity<UpdateUserOwnerResource> getAOwnerById(@PathVariable Long id) {
+        UpdateUserOwnerResource result = userOwnerMapper.toResource(userOwnerService.findById(id));
+        if (result == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(result);
+    }
+
     @Operation(summary = "Update a owner", description = "Update a user owner stored in the database.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Owner updated",

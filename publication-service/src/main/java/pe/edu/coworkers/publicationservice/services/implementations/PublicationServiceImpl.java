@@ -3,7 +3,9 @@ package pe.edu.coworkers.publicationservice.services.implementations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import pe.edu.coworkers.publicationservice.client.UserOwnerClient;
 import pe.edu.coworkers.publicationservice.entities.Publication;
+import pe.edu.coworkers.publicationservice.model.UserOwner;
 import pe.edu.coworkers.publicationservice.repositories.PublicationRepository;
 import pe.edu.coworkers.publicationservice.services.PublicationService;
 
@@ -14,6 +16,9 @@ import java.util.Optional;
 public class PublicationServiceImpl implements PublicationService {
     @Autowired
     private PublicationRepository publicationRepository;
+
+    @Autowired
+    private UserOwnerClient userOwnerClient;
 
     @Override
     public List<Publication> getAll() {
@@ -27,6 +32,15 @@ public class PublicationServiceImpl implements PublicationService {
 
     @Override
     public Publication create(Publication publication) {
+        Long ownerId = publication.getOwnerId();
+
+        ResponseEntity<UserOwner> response = userOwnerClient.getAOwnerById(publication.getOwnerId());
+        UserOwner userOwner = response.getBody();
+
+        if (userOwner == null){
+            return null;
+        }
+
         return publicationRepository.save(publication);
     }
 

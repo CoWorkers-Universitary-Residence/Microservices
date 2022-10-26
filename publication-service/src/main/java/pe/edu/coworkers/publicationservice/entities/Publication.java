@@ -62,6 +62,8 @@ public class Publication {
     private int views;
 
     @NotNull
+    private Long ownerId;
+
     private float score;
 
     @NotNull
