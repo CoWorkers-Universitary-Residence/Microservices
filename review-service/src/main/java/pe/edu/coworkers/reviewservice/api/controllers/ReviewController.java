@@ -35,14 +35,14 @@ public class ReviewController {
         return ResponseEntity.ok(review);
     }
 
-    @GetMapping(value = "/publications/{publicationId}")
-    public ResponseEntity<List<Review>> getReviewByPublicationId(@PathVariable("publicationId") Long id){
-        List<Review> reviews = reviewService.getByPublicationId(id);
-        if (reviews.isEmpty()){
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(reviews);
-    }
+    //@GetMapping(value = "/publications/{publicationId}")
+    //public ResponseEntity<List<Review>> getReviewByPublicationId(@PathVariable("publicationId") Long id){
+    //    List<Review> reviews = reviewService.getByPublicationId(id);
+    //    if (reviews.isEmpty()){
+    //        return ResponseEntity.noContent().build();
+    //    }
+    //    return ResponseEntity.ok(reviews);
+    //}
 
     @PostMapping
     public ResponseEntity<Review> createReview(@RequestBody Review review){

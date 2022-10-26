@@ -24,7 +24,7 @@ public class Review {
     @Column(nullable = false)
     private Date date;
 
-    @NotNull
+    @NotNull(message = "Comment must not be empty")
     @NotBlank
     @Column(length = 150, nullable = false)
     private String comment;
@@ -33,9 +33,9 @@ public class Review {
     @Column(nullable = false)
     private int score;
 
-    @Transient
-    private Publication publication;
+    //@Transient
+    //private Publication publication;
 
-    @Transient
-    private Tenant tenant;
+    //@Transient
+    //private Tenant tenant;
 }

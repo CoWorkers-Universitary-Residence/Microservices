@@ -28,16 +28,20 @@ public class ReviewServiceImpl implements ReviewService {
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, reviewId));
     }
 
-    @Override
-    public List<Review> getByPublicationId(Long publicationId) {
-        return reviewRepository.findByPublicationId(publicationId);
-    }
+    //TODO: Check if publication exists
+    //@Override
+    //public List<Review> getByPublicationId(Long publicationId) {
+    //    return reviewRepository.findByPublicationId(publicationId);
+    //}
 
+    //TODO: Check if publication exists
     @Override
     public Review create(Review request) {
         return reviewRepository.save(request);
     }
 
+    //TODO: Check if publication exists
+    //TODO: Update Publication Score
     @Override
     public Review update(Long reviewId, Review request) {
         return reviewRepository.findById(reviewId).map(review ->
@@ -48,6 +52,7 @@ public class ReviewServiceImpl implements ReviewService {
                 )).orElseThrow(() -> new ResourceNotFoundException(ENTITY, reviewId));
     }
 
+    //TODO: Check if publication exists
     @Override
     public ResponseEntity<?> delete(Long reviewId) {
         return reviewRepository.findById(reviewId).map(review -> {
