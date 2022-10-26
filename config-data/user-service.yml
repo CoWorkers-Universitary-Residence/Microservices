@@ -4,6 +4,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/user?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
     username: postgres
     password: root
+    
 
   #Hibernate Configuration
   jpa:
