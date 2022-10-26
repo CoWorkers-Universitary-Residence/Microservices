@@ -1,0 +1,54 @@
+#DataSource Configuration Properties
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/user?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+    username: postgres
+    password: o9L2TtFd
+
+  #Hibernate Configuration
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8092
+
+  #Error Stack trace
+  error:
+    include-stacktrace: never
+    include-message: always
+
+#Hibernate SQL Logging
+logging:
+  level:
+    hibernate:
+      SQL: DEBUG
+  org:
+    hibernate:
+      type: TRACE
+
+org:
+  springframework:
+    boot:
+      web:
+        server:
+          WebServerException: Unable
+
+#Eureka configuration
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8099/eureka/
+
+#Hystrix configuration
+Feign:
+  hystrix:
+    enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

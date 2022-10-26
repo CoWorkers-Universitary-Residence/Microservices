@@ -1,0 +1,42 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+  application:
+    name: subscriptions
+  datasource:
+    password: admin
+    username: postgres
+    url: jdbc:postgresql://localhost:5432/subscriptions?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+org:
+  springframework:
+    boot:
+      web:
+        server:
+          WebServerException: Unable
+springdoc:
+  swagger-ui:
+    path: /subscriptions-api-docs-ui.html
+  api-docs:
+    path: /subscriptions-api-docs
+server:
+  error:
+    include-stacktrace: never
+    include-message: always
+  port: '8090'
+logging:
+  level:
+    hibernate:
+      SQL: DEBUG
+    org:
+      hibernate:
+        type: TRACE
+        #Eureka configuration
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8099/eureka/
+

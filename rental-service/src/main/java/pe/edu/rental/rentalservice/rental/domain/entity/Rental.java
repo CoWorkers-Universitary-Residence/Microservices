@@ -26,15 +26,15 @@ public class Rental extends AuditModel {
 
     @NotNull
     @Temporal(TemporalType.DATE)
-    private java.util.Date date;
+    private java.util.Date registerDate;
 
     @NotNull
     @Temporal(TemporalType.DATE)
-    private java.util.Date start_date;
+    private java.util.Date startDate;
 
     @NotNull
     @Temporal(TemporalType.DATE)
-    private java.util.Date finish_date;
+    private java.util.Date finishDate;
 
     @NotNull
     @Positive
@@ -43,5 +43,5 @@ public class Rental extends AuditModel {
     //Relationships
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "date_id", nullable = false)
-    private Date c_date;
+    private Date date;
 }
