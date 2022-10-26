@@ -10,6 +10,7 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.Assert;
+import pe.edu.rental.rentalservice.rental.model.Publication;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -23,6 +24,7 @@ public class DateMethodsStep {
     private RequestSpecification requestSpecification;
     private Response response;
     private Scenario scenario;
+
     private int statusCode;
 
     @Before
@@ -41,7 +43,7 @@ public class DateMethodsStep {
 
     }
 
-    @Given("date information is entered")
+    @And("date information is entered")
     public void dateInformationIsEntered(DataTable dataTable) {
 
         List<List<String>> rows = dataTable.asLists(String.class);
@@ -65,13 +67,24 @@ public class DateMethodsStep {
                         .extract().statusCode();
     }
 
-    @And("there is no date created for the post with id {string}")
-    public void thereIsNoDateCreatedForThePostWithId(String arg0) {
-
+    @Given("there is no date created for the post with id {string}")
+    public void thereIsNoDateCreatedForThePostWithId(String id) {
+        String url = "http://localhost:8090/api/v1/dates/publicationId=" + id;
+        List<Publication> res;
+        res = given().contentType("application/json").when().get(url).then().extract().body().path("content");
+        Assert.assertEquals("0", res.size() + "");
     }
 
     @Then("response is {string}")
     public void responseIs(String status) {
         Assert.assertEquals(status, statusCode + "");
+    }
+
+    @And("exists a date created for the post with id {string}")
+    public void existsADateCreatedForThePostWithId(String id) {
+        String url = "http://localhost:8090/api/v1/dates/publicationId=" + id;
+        List<Publication> res;
+        res = given().contentType("application/json").when().get(url).then().extract().body().path("content");
+        Assert.assertEquals("1", res.size() + "");
     }
 }
