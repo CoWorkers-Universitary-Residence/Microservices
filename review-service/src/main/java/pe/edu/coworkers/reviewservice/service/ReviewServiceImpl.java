@@ -12,6 +12,7 @@ import pe.edu.coworkers.reviewservice.domain.service.ReviewService;
 import pe.edu.coworkers.reviewservice.shared.exception.ResourceNotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -34,7 +35,6 @@ public class ReviewServiceImpl implements ReviewService {
                 .orElseThrow(() -> new ResourceNotFoundException(ENTITY, reviewId));
     }
 
-    //TODO: Check if publication exists
     @Override
     public List<Review> getByPublicationId(Long publicationId) {
         ResponseEntity<Publication> response = publicationClient.getPublication(publicationId);
@@ -44,10 +44,9 @@ public class ReviewServiceImpl implements ReviewService {
             throw new ResourceNotFoundException("Publication", publicationId);
         }
 
-        return reviewRepository.findByPublicationId(publicationId);
+        return reviewRepository.findAllByPublicationId(publicationId);
     }
 
-    //TODO: Check if publication exists
     @Override
     public Review create(Review request) {
         Long publicationId = request.getPublicationId();
@@ -62,10 +61,18 @@ public class ReviewServiceImpl implements ReviewService {
         return reviewRepository.save(request);
     }
 
-    //TODO: Check if publication exists
     //TODO: Update Publication Score
     @Override
     public Review update(Long reviewId, Review request) {
+        Long publicationId = request.getPublicationId();
+
+        ResponseEntity<Publication> response = publicationClient.getPublication(publicationId);
+        Publication publication = response.getBody();
+
+        if (publication == null){
+            throw new ResourceNotFoundException("Publication", publicationId);
+        }
+
         return reviewRepository.findById(reviewId).map(review ->
                 reviewRepository.save(
                         review.withComment(request.getComment())
@@ -74,7 +81,6 @@ public class ReviewServiceImpl implements ReviewService {
                 )).orElseThrow(() -> new ResourceNotFoundException(ENTITY, reviewId));
     }
 
-    //TODO: Check if publication exists
     @Override
     public ResponseEntity<?> delete(Long reviewId) {
         return reviewRepository.findById(reviewId).map(review -> {

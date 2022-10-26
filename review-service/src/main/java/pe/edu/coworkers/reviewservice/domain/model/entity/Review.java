@@ -32,7 +32,7 @@ public class Review {
     @Column(nullable = false)
     private int score;
 
-    @Transient
+    @NotNull
     private Long publicationId;
 
     //@Transient

@@ -9,13 +9,8 @@ import pe.edu.coworkers.reviewservice.domain.model.model.Publication;
 
 import java.util.List;
 
-@FeignClient(name = "publication-service")
-@RequestMapping(value = "/api/v1/publications")
+@FeignClient(name = "publication-service", decode404 = true, fallback = PublicationHystrixFallbackFactory.class)
 public interface PublicationClient {
-
-    @GetMapping
-    public ResponseEntity<List<Publication>> getPublications();
-
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/api/v1/publications/{id}")
     public ResponseEntity<Publication> getPublication(@PathVariable("id") Long id);
 }
