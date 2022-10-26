@@ -24,8 +24,6 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         this.validator = validator;
     }
 
-
-
     @Override
     public Subscription getById(Long subscriptionId) {
         return subscriptionRepository.findById(subscriptionId)
@@ -37,13 +35,15 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         Set<ConstraintViolation<Subscription>> violations = validator.validate(request);
         if(!violations.isEmpty())
             throw new ResourceValidationException(Entity,violations);
+
+        /*
         Subscription subscription = new Subscription();
         subscription = subscriptionRepository.save(subscription.withType(request.getType())
                 .withStart_date(request.getStart_date())
                 .withFinish_date(request.getFinish_date())
                         .withPrice(request.getPrice())
-                );
-        return subscriptionRepository.save(subscription);
+                );*/
+        return subscriptionRepository.save(request);
     }
 
     @Override

@@ -84,6 +84,7 @@ public class DateServiceImpl implements DateService {
             throw new ResourceValidationException("There is already a date for this publication");
 
         date.setPublication(publicationClient.getPublication(date.getPublicationId()).getBody());
+        date.setUserTenantResource(userTenantClient.getATenantById(date.getTenantId()).getBody());
 
         return dateRepository.save(date);
     }
