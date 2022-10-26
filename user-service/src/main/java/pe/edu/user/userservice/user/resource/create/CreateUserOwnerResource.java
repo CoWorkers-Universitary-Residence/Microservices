@@ -45,6 +45,9 @@ public class CreateUserOwnerResource {
     private String phone_number;
 
     @NotNull
+    private Long score;
+
+    @NotNull
     @NotBlank
     private String photo;
 
@@ -59,4 +62,7 @@ public class CreateUserOwnerResource {
     @NotNull
     @NotBlank
     private String address ;
+
+    @NotNull
+    private Long subscriptionId;
 }

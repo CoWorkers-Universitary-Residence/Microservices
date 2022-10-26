@@ -18,6 +18,7 @@ public class UpdateUserTenantResource {
     private String description;
     private String photo;
     private String email;
+    private String occupation;
     private String password;
     private String phone_number;
     private String country ;
