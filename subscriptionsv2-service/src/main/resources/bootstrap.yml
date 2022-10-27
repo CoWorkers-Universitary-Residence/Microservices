@@ -1,6 +1,6 @@
 spring:
   application:
-    name: subscriptionsv2-service
+    name: subscription-service
   cloud:
     config:
       #URI where config-service is running

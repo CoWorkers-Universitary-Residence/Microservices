@@ -4,6 +4,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/subscriptionsv2?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
     username: postgres
     password: admin
+    
 
   #Hibernate Configuration
   jpa:
@@ -14,7 +15,7 @@ spring:
       ddl-auto: update
 
 server:
-  port: 8090
+  port: 8092
 
   #Error Stack trace
   error:
@@ -36,12 +37,12 @@ org:
       web:
         server:
           WebServerException: Unable
-          
+
 #Eureka configuration
 eureka:
-    client:
-        serviceUrl:
-            defaultZone: http://localhost:8099/eureka/
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8099/eureka/
 
 #Hystrix configuration
 Feign:
