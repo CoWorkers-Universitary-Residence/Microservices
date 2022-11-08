@@ -50,12 +50,12 @@ public class DateController {
         return mapper.toResource(dateService.create(mapper.toModel(resource)));
     }
 
-    @PutMapping({"id"})
+    @PutMapping("{id}")
     public DateResource updateDate(@PathVariable Long id, @RequestBody UpdateDateResource resource) {
         return mapper.toResource(dateService.update(id, mapper.toModel(resource)));
     }
 
-    @DeleteMapping({"id"})
+    @DeleteMapping("{id}")
     public ResponseEntity<?> deleteDate(@PathVariable Long id) {
         return dateService.delete(id);
     }

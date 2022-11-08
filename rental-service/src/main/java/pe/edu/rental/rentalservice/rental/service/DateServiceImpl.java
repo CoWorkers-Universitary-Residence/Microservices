@@ -79,7 +79,10 @@ public class DateServiceImpl implements DateService {
         if(userTenantClient.getATenantById(date.getTenantId()).getStatusCodeValue() == 404)
             throw new ResourceNotFoundException("UserTenant", date.getTenantId());
 
-        //TODO: Verify validation
+        if(!publicationClient.getPublication(date.getPublicationId()).getBody().isAvailability()) {
+            throw new ResourceValidationException("This publication is not available for rent");
+        }
+
         if(dateRepository.findByTenantId(date.getTenantId()).size() > 0)
             throw new ResourceValidationException("There is already a date for this publication");
 
