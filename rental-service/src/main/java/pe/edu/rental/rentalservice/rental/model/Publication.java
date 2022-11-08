@@ -1,5 +1,6 @@
 package pe.edu.rental.rentalservice.rental.model;
 
+import com.sun.istack.NotNull;
 import lombok.Builder;
 import lombok.Data;
 
@@ -22,4 +23,7 @@ public class Publication {
     private String address;
     private boolean visit;
     private int views;
+    private Long ownerId;
+    private float score;
+    private int reviews;
 }

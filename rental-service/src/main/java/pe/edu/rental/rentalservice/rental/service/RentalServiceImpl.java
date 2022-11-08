@@ -1,11 +1,14 @@
 package pe.edu.rental.rentalservice.rental.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import pe.edu.rental.rentalservice.rental.client.PublicationClient;
 import pe.edu.rental.rentalservice.rental.domain.entity.Rental;
 import pe.edu.rental.rentalservice.rental.domain.persistance.DateRepository;
 import pe.edu.rental.rentalservice.rental.domain.persistance.RentalRepository;
 import pe.edu.rental.rentalservice.rental.domain.service.RentalService;
+import pe.edu.rental.rentalservice.rental.model.Publication;
 import pe.edu.rental.rentalservice.shared.exception.ResourceNotFoundException;
 import pe.edu.rental.rentalservice.shared.exception.ResourceValidationException;
 
@@ -23,6 +26,9 @@ public class RentalServiceImpl implements RentalService {
     private final DateRepository dateRepository;
     private final RentalRepository rentalRepository;
     private final Validator validator;
+
+    @Autowired
+    PublicationClient publicationClient;
 
     public RentalServiceImpl(DateRepository dateRepository, RentalRepository rentalRepository, Validator validator) {
         this.dateRepository = dateRepository;
@@ -47,6 +53,8 @@ public class RentalServiceImpl implements RentalService {
 
     @Override
     public Rental create(Long dateId, Rental rental) {
+        Long publicationId = dateRepository.findById(dateId).get().getPublicationId();
+
         Set<ConstraintViolation<Rental>> violations = validator.validate(rental);
 
         if(!violations.isEmpty())
@@ -63,6 +71,12 @@ public class RentalServiceImpl implements RentalService {
 
         if(!rentalExisting.isEmpty())
             throw new ResourceValidationException(String.format("A rental entity already exists with dateId %d", dateId));
+
+        Publication putPublication = publicationClient.getPublication(publicationId).getBody();
+        putPublication.setAvailability(false);
+        int responseCode = publicationClient.updatePublication(publicationId, putPublication).getStatusCodeValue();
+        if (responseCode == 404)
+            throw new ResourceNotFoundException(String.format("There was a problem trying to register your rental"));
 
         return rentalRepository.save(rental);
     }
