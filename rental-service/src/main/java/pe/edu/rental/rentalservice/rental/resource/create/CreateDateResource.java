@@ -33,8 +33,6 @@ public class CreateDateResource {
     @NotBlank
     private String description;
 
-    private boolean status;
-
     private Long publicationId;
 
     private Long tenantId;

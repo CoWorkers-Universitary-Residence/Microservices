@@ -22,10 +22,6 @@ public class CreateRentalResource {
 
     @NotNull
     @Temporal(TemporalType.DATE)
-    private java.util.Date registerDate;
-
-    @NotNull
-    @Temporal(TemporalType.DATE)
     private java.util.Date startDate;
 
     @NotNull

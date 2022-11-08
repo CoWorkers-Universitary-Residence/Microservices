@@ -54,7 +54,9 @@ public class RentalServiceImpl implements RentalService {
 
     @Override
     public Rental create(Long dateId, Rental rental) {
+        java.util.Date now = new java.util.Date();
         Long publicationId = dateRepository.findById(dateId).get().getPublicationId();
+        rental.setRegisterDate(now);
 
         Set<ConstraintViolation<Rental>> violations = validator.validate(rental);
 

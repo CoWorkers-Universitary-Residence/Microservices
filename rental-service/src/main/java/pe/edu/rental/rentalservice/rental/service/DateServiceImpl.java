@@ -68,6 +68,7 @@ public class DateServiceImpl implements DateService {
 
     @Override
     public Date create(Date date) {
+        java.util.Date now = new java.util.Date();
         Set<ConstraintViolation<Date>> violations = validator.validate(date);
 
         if(!violations.isEmpty())
@@ -88,6 +89,7 @@ public class DateServiceImpl implements DateService {
 
         date.setPublication(publicationClient.getPublication(date.getPublicationId()).getBody());
         date.setUserTenantResource(userTenantClient.getATenantById(date.getTenantId()).getBody());
+        date.setStatus(false);
 
         return dateRepository.save(date);
     }
