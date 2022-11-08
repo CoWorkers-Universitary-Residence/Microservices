@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pe.edu.rental.rentalservice.rental.client.PublicationClient;
+import pe.edu.rental.rentalservice.rental.domain.entity.Date;
 import pe.edu.rental.rentalservice.rental.domain.entity.Rental;
 import pe.edu.rental.rentalservice.rental.domain.persistance.DateRepository;
 import pe.edu.rental.rentalservice.rental.domain.persistance.RentalRepository;
@@ -77,6 +78,11 @@ public class RentalServiceImpl implements RentalService {
         int responseCode = publicationClient.updatePublication(publicationId, putPublication).getStatusCodeValue();
         if (responseCode == 404)
             throw new ResourceNotFoundException(String.format("There was a problem trying to register your rental"));
+
+        dateRepository.findById(dateId).map(existingDate ->
+                dateRepository.save(
+                        existingDate.withStatus(true)
+                )).orElseThrow(() -> new ResourceNotFoundException(ENTITY, dateId));
 
         return rentalRepository.save(rental);
     }

@@ -16,7 +16,7 @@ public class DateResource {
     private int phoneNumber;
     private String email;
     private String description;
-
+    private boolean status;
     private Long publicationId;
     private Long tenantId;
 
