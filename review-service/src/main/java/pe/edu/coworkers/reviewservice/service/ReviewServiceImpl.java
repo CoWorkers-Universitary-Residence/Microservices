@@ -12,6 +12,8 @@ import pe.edu.coworkers.reviewservice.domain.model.model.UserTenantResource;
 import pe.edu.coworkers.reviewservice.domain.persistence.ReviewRepository;
 import pe.edu.coworkers.reviewservice.domain.service.ReviewService;
 import pe.edu.coworkers.reviewservice.shared.exception.ResourceNotFoundException;
+import pe.edu.coworkers.reviewservice.shared.exception.ResourceValidationException;
+
 import java.util.List;
 
 @Service
@@ -56,6 +58,14 @@ public class ReviewServiceImpl implements ReviewService {
         ValidateIfTenantExists(request);
         Publication publication = ValidateIfPublicationExists(request);
 
+        // Validate if Tenant already reviewed Publication
+        Review review = reviewRepository.findByPublicationIdAndTenantId(request.getPublicationId(), request.getTenantId());
+        System.out.println(review);
+        if (review != null) {
+            throw new ResourceValidationException(String.format(
+                    "The Tenant with id %s has already reviewed the Publication with id %s", request.getTenantId(), request.getPublicationId())
+            );
+        }
 
         float score = publication.getScore();
         int reviews_number = publication.getReviews();
