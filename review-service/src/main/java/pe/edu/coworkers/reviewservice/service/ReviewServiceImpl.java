@@ -61,6 +61,11 @@ public class ReviewServiceImpl implements ReviewService {
         ValidateIfTenantExists(request);
         Publication publication = ValidateIfPublicationExists(request);
 
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+
+        request.setDate(Date.valueOf(dtf.format(now)));
+
         // Validate if Tenant already reviewed Publication
         Review review = reviewRepository.findByPublicationIdAndTenantId(request.getPublicationId(), request.getTenantId());
         System.out.println(review);

@@ -20,7 +20,6 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private Date date;
 
     @NotNull(message = "Comment must not be empty")
