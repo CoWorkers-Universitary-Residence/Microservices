@@ -9,8 +9,17 @@ import com.example.subscriptionservice.shared.mapping.Mappers.SubscriptionMapper
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import javax.validation.Valid;
 
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
+@Tag(name = "Subscription", description = "CRUD subscription")
 @RestController
 @RequestMapping("/api/v1/subscriptions")
 public class SubscriptionController {

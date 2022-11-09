@@ -8,9 +8,18 @@ import pe.edu.coworkers.publicationservice.entities.Detail;
 import pe.edu.coworkers.publicationservice.entities.Publication;
 import pe.edu.coworkers.publicationservice.services.DetailService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
+@Tag(name = "Detail", description = "CRUD details")
 @RestController
 @RequestMapping(value = "/api/v1/details")
 public class DetailController {

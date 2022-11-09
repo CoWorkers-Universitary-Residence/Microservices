@@ -9,7 +9,16 @@ import pe.edu.rental.rentalservice.rental.mapping.RentalMapper;
 import pe.edu.rental.rentalservice.rental.resource.RentalResource;
 import pe.edu.rental.rentalservice.rental.resource.create.CreateRentalResource;
 
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
+@Tag(name = "Rental", description = "CRUD rentals")
 @RestController
 @RequestMapping(value = "api/v1/rental")
 public class RentalController {

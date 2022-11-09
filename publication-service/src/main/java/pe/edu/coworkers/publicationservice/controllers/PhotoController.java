@@ -8,9 +8,18 @@ import pe.edu.coworkers.publicationservice.entities.Photo;
 import pe.edu.coworkers.publicationservice.entities.Publication;
 import pe.edu.coworkers.publicationservice.services.PhotoService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
+@Tag(name = "Photo", description = "CRUD photos")
 @RestController
 @RequestMapping (value = "/api/v1/photos")
 public class PhotoController {

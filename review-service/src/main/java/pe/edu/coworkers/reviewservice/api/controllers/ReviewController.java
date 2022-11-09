@@ -7,9 +7,18 @@ import org.springframework.web.bind.annotation.*;
 import pe.edu.coworkers.reviewservice.domain.model.entity.Review;
 import pe.edu.coworkers.reviewservice.domain.service.ReviewService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
+@Tag(name = "Review", description = "CRUD reviews")
 @RestController
 @RequestMapping(value = "/api/v1/reviews")
 public class ReviewController {

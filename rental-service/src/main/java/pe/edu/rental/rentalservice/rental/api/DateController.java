@@ -10,8 +10,16 @@ import pe.edu.rental.rentalservice.rental.resource.DateResource;
 import pe.edu.rental.rentalservice.rental.resource.create.CreateDateResource;
 import pe.edu.rental.rentalservice.rental.resource.update.UpdateDateResource;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
 @RestController
+@Tag(name = "Date", description = "CRUD dates")
 @RequestMapping(value = "api/v1/dates")
 public class DateController {
 
