@@ -14,6 +14,9 @@ import pe.edu.coworkers.reviewservice.domain.service.ReviewService;
 import pe.edu.coworkers.reviewservice.shared.exception.ResourceNotFoundException;
 import pe.edu.coworkers.reviewservice.shared.exception.ResourceValidationException;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -86,11 +89,14 @@ public class ReviewServiceImpl implements ReviewService {
         ValidateIfTenantExists(request);
         ValidateIfPublicationExists(request);
 
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+
         return reviewRepository.findById(reviewId).map(review ->
                 reviewRepository.save(
                         review.withComment(request.getComment())
                                 .withScore(request.getScore())
-                                .withDate(request.getDate())
+                                .withDate(Date.valueOf(dtf.format(now)))
                 )).orElseThrow(() -> new ResourceNotFoundException(ENTITY, reviewId));
     }
 
