@@ -7,3 +7,9 @@ spring:
       uri: http://localhost:8081
       username: root
       password: universitaryresidence
+#springdoc:
+#  api-docs:
+#    path: /user-service-api-docs
+#  swagger-ui:
+#    path: /user-service-api-docs.ui.html
+#    operations-sorter: alpha
