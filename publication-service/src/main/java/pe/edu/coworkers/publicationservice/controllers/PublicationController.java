@@ -41,6 +41,8 @@ public class PublicationController {
         if (publication == null){
             return ResponseEntity.notFound().build();
         }
+        publication.setViews(publication.getViews() + 1);
+        publicationService.update(publication);
         return ResponseEntity.ok(publication);
     }
 
